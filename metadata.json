@@ -1,0 +1,6 @@
+{
+  "name": "Spiritual Book Store & Private Reader",
+  "description": "Securely purchase and privately read magic and spiritual books online with secure payments and offline e-book downloads.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

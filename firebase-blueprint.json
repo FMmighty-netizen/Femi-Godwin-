@@ -1,0 +1,81 @@
+{
+  "entities": {
+    "user": {
+      "title": "User Profile",
+      "description": "User profile containing private user information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "book": {
+      "title": "Book",
+      "description": "Magic and spiritual book details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "author": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string", "enum": ["magic", "spiritual"] },
+        "price": { "type": "number" },
+        "priceNGN": { "type": "number" },
+        "coverImage": { "type": "string" },
+        "pages": { "type": "array" }
+      },
+      "required": ["id", "title", "author", "description", "category", "price", "coverImage", "pages"]
+    },
+    "purchase": {
+      "title": "Purchase Record",
+      "description": "Book purchase details including payment info",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "bookId": { "type": "string" },
+        "purchasedAt": { "type": "string", "format": "date-time" },
+        "paymentMethod": { "type": "string", "enum": ["stripe", "opay", "paystack"] },
+        "paymentReference": { "type": "string" },
+        "status": { "type": "string", "enum": ["completed", "pending"] },
+        "amountPaid": { "type": "number" }
+      },
+      "required": ["id", "userId", "bookId", "purchasedAt", "paymentMethod", "status"]
+    },
+    "readingProgress": {
+      "title": "Reading Progress",
+      "description": "Private reading session progress and notes for a user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "bookId": { "type": "string" },
+        "currentPage": { "type": "number" },
+        "lastReadAt": { "type": "string", "format": "date-time" },
+        "notes": { "type": "array" }
+      },
+      "required": ["id", "userId", "bookId", "currentPage", "lastReadAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "user",
+      "description": "Private user profiles"
+    },
+    "books/{bookId}": {
+      "schema": "book",
+      "description": "Public directory of magic and spiritual books"
+    },
+    "users/{userId}/purchases/{purchaseId}": {
+      "schema": "purchase",
+      "description": "Private collection of book purchases for a user"
+    },
+    "users/{userId}/readingProgress/{progressId}": {
+      "schema": "readingProgress",
+      "description": "Private reading sessions and progress details for a user"
+    }
+  }
+}
